@@ -1,0 +1,55 @@
+<?php
+class LogAnalyzer
+{
+    private $extensionManager;
+
+    // 依賴反轉
+    function __construct($extensionManager) {
+        $this->extensionManager = $extensionManager;
+    }
+
+    public function IsValidLogFile($fileName) {
+        $extensionManager = ExtensionManagerFactory::create();
+        return $extensionManager->IsValid($fileName);
+    }
+}
+
+class ExtensionManagerFactory
+{
+    private static $customManager;
+
+    public static function create() {
+        if ($customManager != NULL) {
+            return $customManager;
+        }
+        return new FileExtensionManager();
+    }
+
+    public static function setCustomManager($customManager) {
+        $this->customManager = $customManager;
+    }
+}
+
+interface IExtensionManager
+{
+    public function IsValid($fileName);
+}
+
+class FileExtensionManager implements IExtensionManager
+{
+    public function IsValid($fileName) {
+        // 讀取檔案
+        $fileContent = file_get_contents($fileName);
+        
+        // 驗證檔案內容...
+        
+        return $result;
+    }
+}
+
+class AlwaysValidFakeExtensionManager implements IExtensionManager
+{
+    public function IsValid($fileName) {   
+        return false;
+    }
+}
