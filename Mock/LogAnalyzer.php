@@ -7,21 +7,21 @@ class LogAnalyzer
         $this->webService = $webService;
     }
 
-    public function Analyze($fileName) {
+    public function analyze($fileName) {
         if (count($fileName) < 8) {
-            $this->webService->LogError("FileName too short: " + $fileName);
+            $this->webService->logError("FileName too short: " + $fileName);
         }
     }
 }
 
 interface IWebService
 {
-    public function LogError($message);
+    public function logError($message);
 }
 
 class ErrorLogWebService implements IWebService
 {
-    public function LogError($message) {
+    public function logError($message) {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $message);
@@ -37,7 +37,7 @@ class FakeWebService implements IWebService
 {
     public $lastError;
 
-    public function LogError($message) {   
-        $this->lastError = $lastError;
+    public function logError($message) {   
+        $this->lastError = $message;
     }
 }

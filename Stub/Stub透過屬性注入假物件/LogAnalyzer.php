@@ -7,19 +7,19 @@ class LogAnalyzer
         $this->extensionManager = $extensionManager;
     }
 
-    public function IsValidLogFile($fileName) {
-        return $this->extensionManager->IsValid($fileName);
+    public function isValidLogFile($fileName) {
+        return $this->extensionManager->isValid($fileName);
     }
 }
 
 interface IExtensionManager
 {
-    public function IsValid($fileName);
+    public function isValid($fileName);
 }
 
 class FileExtensionManager implements IExtensionManager
 {
-    public function IsValid($fileName) {
+    public function isValid($fileName) {
         // 讀取檔案
         $fileContent = file_get_contents($fileName);
         
@@ -31,7 +31,7 @@ class FileExtensionManager implements IExtensionManager
 
 class AlwaysValidFakeExtensionManager implements IExtensionManager
 {
-    public function IsValid($fileName) {   
+    public function isValid($fileName) {   
         return false;
     }
 }

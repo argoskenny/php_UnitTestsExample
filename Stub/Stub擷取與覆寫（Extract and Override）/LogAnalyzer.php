@@ -1,12 +1,12 @@
 <?php
 class LogAnalyzerUsingFactoryMethod
 {
-    public function IsValidLogFile($fileName) {
-        $extensionManager = GetManager();
-        return $extensionManager->IsValid($fileName);
+    public function isValidLogFile($fileName) {
+        $extensionManager = $this->getManager();
+        return $extensionManager->isValid($fileName);
     }
 
-    protected function GetManager() {
+    protected function getManager() {
         return new FileExtensionManager();
     }
 }
@@ -20,19 +20,19 @@ class TestableLogAnalyzer extends LogAnalyzerUsingFactoryMethod
     }
 
     // override 父類別的方法
-    function GetManager() {
+    function getManager() {
         return $this->extensionManager;
     }
 }
 
 interface IExtensionManager
 {
-    public function IsValid($fileName);
+    public function isValid($fileName);
 }
 
 class FileExtensionManager implements IExtensionManager
 {
-    public function IsValid($fileName) {
+    public function isValid($fileName) {
         // 讀取檔案
         $fileContent = file_get_contents($fileName);
         
@@ -44,7 +44,7 @@ class FileExtensionManager implements IExtensionManager
 
 class AlwaysValidFakeExtensionManager implements IExtensionManager
 {
-    public function IsValid($fileName) {   
+    public function isValid($fileName) {   
         return false;
     }
 }

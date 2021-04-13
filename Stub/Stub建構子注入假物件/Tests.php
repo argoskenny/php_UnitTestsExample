@@ -9,10 +9,11 @@ class LogAnalyzerTests extends TestCase
         parent::setUp();
     }
 
-    public function IsValidFileName_BadExtension_ReturnsFalse() {
+    public function IsValidFile_BadExtension_ReturnsFalse() {
+        $fakeExtensionManager = new AlwaysValidFakeExtensionManager();
         $logAnalyzer = new LogAnalyzer();
-        $result = $logAnalyzer->isValidLogFileName("filewithbadextension.foo");
-        $result = $logAnalyzer->isValidFile;
+        $logAnalyzer->extensionManager = $fakeExtensionManager
+        $result = $logAnalyzer->isValidLogFile("filewithbadextension.foo");
         $this->assertEquals(false, $result);
     }
 }
